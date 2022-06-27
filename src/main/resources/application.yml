@@ -5,17 +5,18 @@ spring:
 ---
 spring:  profiles:
   - local
-  
+
   mvc:
     view:
       prefix: "/WEB-INF/views"
       suffix: ".jsp"
-      
-  datasource:    url: jdbc:mysql://localhost:3306/yis?characterEncoding=UTF-8&serverTimezone=UTC
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/yis?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-   
+
   session:
     jdbc:
       initialize-schema: always
@@ -23,7 +24,7 @@ spring:  profiles:
 server:  port: 8080
   tomcat:
     uri-encoding: UTF-8
-  
+
   servlet:
     encoding:
       charset: UTF-8
@@ -34,8 +35,12 @@ server:  port: 8080
       init-parameters:        development: true
     session:
       timeout: 7200
-  
+
   error:
       whitelabel:
-        enabled: false    
+        enabled: false
+mybatis:
+  type-aliases-package: com.lcomputerstudy.example.domain
+  mapper-locations: mapper/**/*.xml
+
     
