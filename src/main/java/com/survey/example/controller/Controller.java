@@ -8,4 +8,17 @@ public class Controller {
 	public String home() {
 		return "/index";
 	}
+	
+	@RequestMapping("/Before_registSurvey")
+	public String Before_registSurvey() {
+		
+		return "/registSurvey";
+	}
+	
+	@RequestMapping("/main")
+	public String joinSurvey() {
+		
+		
+		return "/main";
+	}
 }

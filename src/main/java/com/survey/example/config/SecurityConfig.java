@@ -1,4 +1,4 @@
- package com.survey.example.config;
+/*package com.survey.example.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,4 +96,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());		
 	}
-} 
+} */

@@ -2,10 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	<!-- Survey ResultMap -->
-	<resultMap type="com.survey.example.domain.Question" id="QuestinMap">
-		<result property="qNum" column="q_num"></result>
-		<result property="qTitle" column="q_title"></result>
-		<result property="qContent" column="q_content"></result>
+	<resultMap type="com.survey.example.domain.Survey" id="SurveyMap">
+		<result property="sNum" column="s_num"></result>
+		<result property="sTitle" column="s_title"></result>
+		<result property="sContent" column="s_content"></result>
+		<result property="sViews" column="s_views"></result>
+		<result property="sDatetime" column="s_datetime"></result>
 	</resultMap>
 	
 	<select id=""
