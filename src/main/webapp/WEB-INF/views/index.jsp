@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>설문조사</h1>
+	
 </body>
 </html>
