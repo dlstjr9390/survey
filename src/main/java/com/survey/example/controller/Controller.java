@@ -28,10 +28,6 @@ public class Controller {
 	@RequestMapping("/")
 	public String home() {
 		
-		logger.debug("debug");
-	     logger.info("info");
-	     logger.error("error");
-
 		return "/index";
 	}
 	
@@ -42,8 +38,42 @@ public class Controller {
 	
 	@RequestMapping("/signup")
 	public String signup(User user) {
+		//비밀번호 암호화
+		String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+		
+		user.setPassword(encodedPassword);
+		user.setAccountNonExpired(true);
+		user.setEnabled(true);
+		user.setAccountNonLocked(true);
+		user.setCredentialsNonExpired(true);
+		user.setAuthorites(AuthorityUtils.createAuthorityList("ROLE_USER"));
+		
+		userservice.createUser(user);
+		userservice.createAuthority(user);
+		
 		return "/login";
 	}
+	
+	@RequestMapping("/login")
+	public String BeforeLogin(Model model) {
+		return "/login";
+	}
+	
+	@Secured({"ROLE_ADMIN"})
+		@RequestMapping(value="/admin")
+		public String admin(Model model) {
+			return "/admin";
+	}
+		@Secured({"ROLE_USER"})
+		@RequestMapping(value="/user/info")
+		public String userInfo(Model model) {
+			return "/user_info";
+		}
+		
+		@RequestMapping(value="/denied")
+		public String denied(Model model) {
+			return "/denied";
+		}
 	
 	@RequestMapping("/Before_registSurvey")
 	public String Before_registSurvey() {

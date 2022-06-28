@@ -40,7 +40,7 @@ server:  port: 8080
       whitelabel:
         enabled: false
 mybatis:
-  type-aliases-package: com.lcomputerstudy.example.domain
+  type-aliases-package: com.survey.example.domain
   mapper-locations: mapper/**/*.xml
 
     

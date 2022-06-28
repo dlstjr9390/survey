@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>로그인</h1>
+	<h1>로그인</h1><a href="/beforeSignUp">회원가입</a>
+	<hr>
 		<form action="loginPro" method="post">
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}">
 			<input type="text" name="username" placeholder="id를 입력해주세요.">

@@ -27,7 +27,9 @@
 				<a href="/beforeSignUp">회원가입</a>
 			</sec:authorize>
 	<hr>
-	<a href="Before_registSurvey">설문조사 만들기</a>
-	<a href="home">설문조사 참여하기</a>	
+	<sec:authorize access="isAuthenticated()">
+		<a href="Before_registSurvey">설문조사 만들기</a>
+		<a href="home">설문조사 참여하기</a>	
+	</sec:authorize>	
 </body>
 </html>

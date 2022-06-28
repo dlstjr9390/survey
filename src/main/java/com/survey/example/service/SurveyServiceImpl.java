@@ -8,7 +8,7 @@ import com.survey.example.domain.Survey;
 import com.survey.example.mapper.SurveyMapper;
 
 
-
+@Service("SurveyServiceImpl")
 public class SurveyServiceImpl implements SurveyService {
 	@Autowired SurveyMapper surveymapper;
 	

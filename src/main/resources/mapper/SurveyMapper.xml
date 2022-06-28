@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
+<mapper namespace="com.survey.example.mapper.BoardMapper">
 	<!-- Survey ResultMap -->
 	<resultMap type="com.survey.example.domain.Survey" id="SurveyMap">
 		<result property="sNum" column="s_num"></result>
@@ -10,5 +10,4 @@
 		<result property="sDatetime" column="s_datetime"></result>
 	</resultMap>
 	
-	<select id=""
 </mapper>
