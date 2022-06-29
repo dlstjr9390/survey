@@ -42,5 +42,8 @@ server:  port: 8080
 mybatis:
   type-aliases-package: com.survey.example.domain
   mapper-locations: mapper/**/*.xml
+ 
+logging:
+    config: classpath:logback-spring.xml
 
     

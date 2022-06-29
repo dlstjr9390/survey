@@ -81,6 +81,11 @@ public class Controller {
 		return "/registSurvey";
 	}
 	
+	@RequestMapping("/registSurvey")
+	public String registSurvey() {
+		return "/index";
+	}
+	
 	@RequestMapping("/main")
 	public String joinSurvey() {
 		

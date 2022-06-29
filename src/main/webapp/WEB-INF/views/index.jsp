@@ -8,6 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<h1>설문조사</h1>
@@ -28,8 +36,8 @@
 			</sec:authorize>
 	<hr>
 	<sec:authorize access="isAuthenticated()">
-		<a href="Before_registSurvey">설문조사 만들기</a>
-		<a href="home">설문조사 참여하기</a>	
+		<a href="Before_registSurvey" class="btn btn-primary" role=button>설문조사 만들기</a>&nbsp;
+		<a href="home" class="btn btn-primary" role=button>설문조사 참여하기</a>	
 	</sec:authorize>	
 </body>
 </html>
