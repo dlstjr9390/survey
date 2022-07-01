@@ -6,6 +6,7 @@
 <html>
 <head>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -23,23 +24,25 @@
 	</script>
 	<div style="margin-left:10px;">
 		<h1>설문조사 만들기</h1>
-			<p><input type="text" name="sTitle" placeholder="설문조사의 제목을 작성해주세요." style="width:40%; height:40px; font-size:16px;"></p>			
-			<p><input type="text" name="sContent" placeholder="설명" style="width:30%;"></p>
-			<hr>
-			<div class="qFormat">
-				<p style="font-size:15px;"><b>1.</b> <input type="text" name= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
-				<select class="AnswerType" name="aType" style="margin-left:10px; margin-right:10px;" >
-					<option value="default" selected disabled>선택</option>
-					<option value="short">단답형</option>
-					<option value="long">장문형</option>
-					<option value="subject">객관식</option>
-					<option value="checkbox">체크박스</option>
-					<option value="dropdown">드롭다운</option>
-				</select>
-				<button type="button" class="addsubbtn" style="display:none">추가</button>
+			<div id="survey">
+				<p><input type="text" class="sTitle" placeholder="설문조사의 제목을 작성해주세요." style="width:40%; height:40px; font-size:16px;"></p>			
+				<p><input type="text" class="sDescription" placeholder="설명" style="width:30%;"></p>
 				<hr>
-			</div>	
-			<button type="submit">완료</button>
+				<div id="qFormat">
+					<p style="font-size:15px;"><b>1.</b> <input type="text" class= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
+					<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >
+						<option value="default" selected disabled>선택</option>
+						<option value="short">단답형</option>
+						<option value="long">장문형</option>
+						<option value="subject">객관식</option>
+						<option value="checkbox">체크박스</option>
+						<option value="dropdown">드롭다운</option>
+					</select>
+					<button type="button" class="addsubbtn" style="display:none">항목 추가</button>
+					<hr>
+				</div>	
+				<button type="submit" id="submit">완료</button>
+			</div>
 	</div>
 <script>
 	var num = 1;
@@ -47,9 +50,9 @@
 	
 	$(document).on('change', '.AnswerType', function(){
 		if(ischange == true){
-			$('.qFormat').find('.answer').remove();
-			$('.qFormat').find('.addbtn').remove();
-			
+			$(this).parent().find('.answer').remove();
+			$(this).parent().find('.addbtn').hide();
+			$('.qFormat').parent().find('.addbtn').remove();
 			
 			num = 1;
 		}
@@ -65,7 +68,6 @@
 		} else if($(this).val()=="subject" ||$(this).val()=="checkbox"){
 			$(this).parent().find('.addsubbtn').show();
 			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" style="font-size:13px; height:23px;"></p>');
-			$(this).parent().next().before('<button type="button" class="addbtn">질문 추가</button>');
 			
 		} else if($(this).val()=="dropdown"){
 			$(this).parent().find('.addsubbtn').show();
@@ -78,8 +80,9 @@
 	
 	$(document).on('click', '.addbtn',function(){
 		qnum ++;
-		$('.qFormat').append('<p style="font-size:15px;">'+'<b>'+qnum+'</b>'+'. <input type="text" name= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">'
-							+'<select class="AnswerType" name="aType" style="margin-left:10px; margin-right:10px;" >'
+		$('#qFormat').append('<div class="qFormat">'
+							+'<p style="font-size:15px;">'+'<b>'+qnum+'</b>'+'. <input type="text" name= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">'
+							+'<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >'
 							+'<option value="default" selected disabled>선택</option>'
 							+'<option value="short">단답형</option>'
 							+'<option value="long">장문형</option>'
@@ -87,9 +90,12 @@
 							+'<option value="checkbox">체크박스</option>'
 							+'<option value="dropdown">드롭다운</option>'
 							+'</select>'
-							+'<button type="button" class="addsubbtn" style="display:none">추가</button>'
+							+'<button type="button" class="addsubbtn" style="display:none">항목 추가</button>'
+							+'<button type="button" class="delbtn" style="margin-left:15px;">질문 삭제</button>'
 							+'<hr>'
+							+'</div>'
 		);
+		$(this).hide();
 	});
 	
 	$(document).on('click','.addsubbtn',function(){
@@ -110,11 +116,44 @@
 	});
 
 	$(document).on('click','.delsubbtn',function(){
-		$(this).parent().prev().find('.delsubbtn').show();
-		$(this).closest('p').remove()
+			$(this).parent().prev().find('.delsubbtn').show();
+			$(this).closest('p').remove()
 		num --;
 
 		
+	});
+
+	$(document).on('click','.delbtn',function(){
+		$(this).parent().next().remove();
+		$(this).closest('p').remove();
+		
+		qnum--;	
+	})
+	
+	$(document).on('click','#submit',function(){
+		let Questions = [];
+		$('.qFormat').each(function(){
+			let items = [];
+			$(this).find('.answer').each(function(){
+				let item = {};
+				itmes.push(item);
+			});
+
+			let question = {
+					qContent : $('.qForamt').find('.qContent').val(),
+					aType : $('.qFormat').find('.aType').val(),
+					itmes : items
+					};
+			Questions.push(question);
+		});
+		let survey = {
+						sTitle : $('#survey').find('.sTitle').val(),
+						sDescription : $('#survey').find('.sDescription').val(),
+						Questions : Questions
+				};
+		console.log(survey);
+			
+	
 	});
 </script>	
 </body>

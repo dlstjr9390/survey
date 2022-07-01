@@ -1,12 +1,22 @@
 package com.survey.example.domain;
 
+import java.util.List;
+
 public class Survey {
 	private int sNum;
 	private String sTitle;
-	private String sContent;
+	private String sDescription;
 	private int sViews;
 	private String sDatetime;
 	
+	private List<Question> QuestionList;
+	
+	public List<Question> getQuestionList() {
+		return QuestionList;
+	}
+	public void setQuestionList(List<Question> questionList) {
+		QuestionList = questionList;
+	}
 	public int getsNum() {
 		return sNum;
 	}
@@ -19,11 +29,12 @@ public class Survey {
 	public void setsTitle(String sTitle) {
 		this.sTitle = sTitle;
 	}
-	public String getsContent() {
-		return sContent;
+
+	public String getsDescription() {
+		return sDescription;
 	}
-	public void setsContent(String sContent) {
-		this.sContent = sContent;
+	public void setsDescription(String sDescription) {
+		this.sDescription = sDescription;
 	}
 	public int getsViews() {
 		return sViews;
