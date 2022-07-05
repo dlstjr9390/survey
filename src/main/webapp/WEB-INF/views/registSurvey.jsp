@@ -29,17 +29,19 @@
 				<p><input type="text" class="sDescription" placeholder="설명" style="width:30%;"></p>
 				<hr>
 				<div id="qFormat">
-					<p style="font-size:15px;"><b>1.</b> <input type="text" class= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
-					<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >
-						<option value="default" selected disabled>선택</option>
-						<option value="short">단답형</option>
-						<option value="long">장문형</option>
-						<option value="subject">객관식</option>
-						<option value="checkbox">체크박스</option>
-						<option value="dropdown">드롭다운</option>
-					</select>
-					<button type="button" class="addsubbtn" style="display:none">항목 추가</button>
-					<hr>
+					<div class="qFormat">
+						<p style="font-size:15px;"><b>1.</b> <input type="text" class= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
+						<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >
+							<option value="default" selected disabled>선택</option>
+							<option value="short" >단답형</option>
+							<option value="long">장문형</option>
+							<option value="subject">객관식</option>
+							<option value="checkbox">체크박스</option>
+							<option value="dropdown">드롭다운</option>
+						</select>
+						<button type="button" class="addsubbtn" style="display:none">항목 추가</button>
+						<hr>
+					</div>
 				</div>	
 				<button type="submit" id="submit">완료</button>
 			</div>
@@ -51,28 +53,31 @@
 	$(document).on('change', '.AnswerType', function(){
 		if(ischange == true){
 			$(this).parent().find('.answer').remove();
-			$(this).parent().find('.addbtn').hide();
-			$('.qFormat').parent().find('.addbtn').remove();
+			$(this).parent().find('.addbtn').remove();
+			$(this).parent().find('.addsubbtn').hide();
+			$(this).parent().parent().find('.addbtn').remove();
+
 			
 			num = 1;
 		}
 		
 		if($(this).val()=="short"){
-			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" value="단답형 답변(10자 이내)" style="width:20%;" maxlength="10" disabled>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" name="short" value="단답형 답변(10자 이내)" style="width:20%;" maxlength="10" disabled>');
 			$(this).parent().append('<button type="button" class="addbtn">질문 추가</button>');	
 			
 		} else if($(this).val()=="long"){
-			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" value="장문형 답변(100자 이내)" style="width:40%; height:200px;" maxlength="100" disabled>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" name="long" value="장문형 답변(100자 이내)" style="width:40%; height:200px;" maxlength="100" disabled>');
 			$(this).parent().append('<button type="button" class="addbtn">질문 추가</button>');
 			
 		} else if($(this).val()=="subject" ||$(this).val()=="checkbox"){
 			$(this).parent().find('.addsubbtn').show();
-			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" style="font-size:13px; height:23px;"></p>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" name = "subOrcheck" style="font-size:13px; height:23px;"></p>');
+			$(this).parent().after('<button type="button" class="addbtn">질문 추가</button>');
 			
 		} else if($(this).val()=="dropdown"){
 			$(this).parent().find('.addsubbtn').show();
-			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" style="font-size:13px; height:23px;">&nbsp;');
-			$(this).parent().next().before('<button type="button" class="addbtn">질문 추가</button>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" name = "dropdown" style="font-size:13px; height:23px;">&nbsp;');
+			$(this).parent().after('<button type="button" class="addbtn">질문 추가</button>');
 		}
 		
 		ischange = true;
@@ -95,7 +100,7 @@
 							+'<hr>'
 							+'</div>'
 		);
-		$(this).hide();
+		$(this).remove();
 	});
 	
 	$(document).on('click','.addsubbtn',function(){
@@ -125,35 +130,41 @@
 
 	$(document).on('click','.delbtn',function(){
 		$(this).parent().next().remove();
-		$(this).closest('p').remove();
-		
-		qnum--;	
-	})
+		qnum--;
+		if(qnum == 1){
+			$(this).closest('div').prev().find('hr').before('<button type="button" class="addbtn">질문 추가</button>');
+		} else {
+			$(this).parent().parent().prev().find('hr').before('<button type="button" class="addbtn">질문 추가</button>');
+		}	
+		$(this).closest('div').remove();
+
+	});
 	
 	$(document).on('click','#submit',function(){
-		let Questions = [];
+		let qFormatlist = [];
+		
 		$('.qFormat').each(function(){
-			let items = [];
+			let answerlist = [];
+
 			$(this).find('.answer').each(function(){
-				let item = {};
-				itmes.push(item);
+				let answer = {};
+				answerlist.push(answer)	
 			});
 
-			let question = {
-					qContent : $('.qForamt').find('.qContent').val(),
-					aType : $('.qFormat').find('.aType').val(),
-					itmes : items
-					};
-			Questions.push(question);
+			let qFormat ={
+						qContent:$(this).find('.qContent').val(),
+						aType	:$(this).find('.aType').val(),
+						answerlist:[]
+			};
+			qFormatlist.push(qFormat);
 		});
+
 		let survey = {
-						sTitle : $('#survey').find('.sTitle').val(),
-						sDescription : $('#survey').find('.sDescription').val(),
-						Questions : Questions
-				};
+					sTitle:$('#survey').find('.sTitle').val(),
+					sDescription:$('#survey').find('.sDescription').val(),
+					qFormatlist:qFormatlist
+			}
 		console.log(survey);
-			
-	
 	});
 </script>	
 </body>
