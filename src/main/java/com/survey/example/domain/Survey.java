@@ -4,18 +4,28 @@ import java.util.List;
 
 public class Survey {
 	private int sNum;
+	private int sIdx;
 	private String sTitle;
-	private String sDescription;
+	private String sDesc;
 	private int sViews;
 	private String sDatetime;
+	private Question question;
+	private Answer answer;
 	
-	private List<Question> QuestionList;
+	public List<Qformat> qFormatlist;
 	
-	public List<Question> getQuestionList() {
-		return QuestionList;
+	public void SetSurvey(Survey survey) {
+		this.sTitle = survey.getsDatetime();
+		this.sDesc = survey.getsDesc();
+		
 	}
-	public void setQuestionList(List<Question> questionList) {
-		QuestionList = questionList;
+	
+	
+	public int getsIdx() {
+		return sIdx;
+	}
+	public void setsIdx(int sIdx) {
+		this.sIdx = sIdx;
 	}
 	public int getsNum() {
 		return sNum;
@@ -30,11 +40,11 @@ public class Survey {
 		this.sTitle = sTitle;
 	}
 
-	public String getsDescription() {
-		return sDescription;
+	public String getsDesc() {
+		return sDesc;
 	}
-	public void setsDescription(String sDescription) {
-		this.sDescription = sDescription;
+	public void setsDesc(String sDesc) {
+		this.sDesc = sDesc;
 	}
 	public int getsViews() {
 		return sViews;
@@ -48,6 +58,33 @@ public class Survey {
 	public void setsDatetime(String sDatetime) {
 		this.sDatetime = sDatetime;
 	}
-	
+
+	public List<Qformat> getqFormatlist() {
+		return qFormatlist;
+	}
+
+	public void setqFormatlist(List<Qformat> qFormatlist) {
+		this.qFormatlist = qFormatlist;
+	}
+
+
+	public Question getQuestion() {
+		return question;
+	}
+
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
 	
 }

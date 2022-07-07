@@ -1,11 +1,26 @@
 package com.survey.example.domain;
 
+import java.util.List;
+
 public class Question {
-	
+	private int qIdx;
+	private String qNum;
 	private String qContent;
 	private String aType;
-	private String qAnswer;
-	
+	private int sIdx;
+
+	public int getqIdx() {
+		return qIdx;
+	}
+	public void setqIdx(int qIdx) {
+		this.qIdx = qIdx;
+	}
+	public String getqNum() {
+		return qNum;
+	}
+	public void setqNum(String qNum) {
+		this.qNum = qNum;
+	}
 	public String getqContent() {
 		return qContent;
 	}
@@ -18,10 +33,12 @@ public class Question {
 	public void setaType(String aType) {
 		this.aType = aType;
 	}
-	public String getqAnswer() {
-		return qAnswer;
+	public int getsIdx() {
+		return sIdx;
 	}
-	public void setqAnswer(String qAnswer) {
-		this.qAnswer = qAnswer;
+	public void setsIdx(int sIdx) {
+		this.sIdx = sIdx;
 	}
+	
+
 }

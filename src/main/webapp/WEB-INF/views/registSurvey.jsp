@@ -31,7 +31,7 @@
 				<div id="qFormat">
 					<div class="qFormat">
 						<p style="font-size:15px;"><b>1.</b> <input type="text" class= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
-						<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >
+						<select class="aType" name="aType"style="margin-left:10px; margin-right:10px;" >
 							<option value="default" selected disabled>선택</option>
 							<option value="short" >단답형</option>
 							<option value="long">장문형</option>
@@ -50,9 +50,9 @@
 	var num = 1;
 	var ischange = false;
 	
-	$(document).on('change', '.AnswerType', function(){
+	$(document).on('change', '.aType', function(){
 		if(ischange == true){
-			$(this).parent().find('.answer').remove();
+			$(this).parent().find('.ex').remove();
 			$(this).parent().find('.addbtn').remove();
 			$(this).parent().find('.addsubbtn').hide();
 			$(this).parent().parent().find('.addbtn').remove();
@@ -62,21 +62,21 @@
 		}
 		
 		if($(this).val()=="short"){
-			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" name="short" value="단답형 답변(10자 이내)" style="width:20%;" maxlength="10" disabled>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="ex"><input type="text" name="short" class="answer" value="단답형 답변(10자 이내)" style="width:20%;" maxlength="10" disabled>');
 			$(this).parent().append('<button type="button" class="addbtn">질문 추가</button>');	
 			
 		} else if($(this).val()=="long"){
-			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="answer"><input type="text" name="long" value="장문형 답변(100자 이내)" style="width:40%; height:200px;" maxlength="100" disabled>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13;" class="ex"><input type="text" name="long" class="answer" value="장문형 답변(100자 이내)" style="width:40%; height:200px;" maxlength="100" disabled>');
 			$(this).parent().append('<button type="button" class="addbtn">질문 추가</button>');
 			
 		} else if($(this).val()=="subject" ||$(this).val()=="checkbox"){
 			$(this).parent().find('.addsubbtn').show();
-			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" name = "subOrcheck" style="font-size:13px; height:23px;"></p>');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="ex">'+num+'. <input type="text" name = "subOrcheck" class="answer" style="font-size:13px; height:23px;"></p>');
 			$(this).parent().after('<button type="button" class="addbtn">질문 추가</button>');
 			
 		} else if($(this).val()=="dropdown"){
 			$(this).parent().find('.addsubbtn').show();
-			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="answer">'+num+'. <input type="text" name = "dropdown" style="font-size:13px; height:23px;">&nbsp;');
+			$(this).parent().append('<p style="margin-top:10px; font-size:13px;" class="ex">'+num+'. <input type="text" name = "dropdown" class="answer" style="font-size:13px; height:23px;">&nbsp;');
 			$(this).parent().after('<button type="button" class="addbtn">질문 추가</button>');
 		}
 		
@@ -86,8 +86,8 @@
 	$(document).on('click', '.addbtn',function(){
 		qnum ++;
 		$('#qFormat').append('<div class="qFormat">'
-							+'<p style="font-size:15px;">'+'<b>'+qnum+'</b>'+'. <input type="text" name= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">'
-							+'<select class="AnswerType" name="aType" class="aType" style="margin-left:10px; margin-right:10px;" >'
+							+'<p style="font-size:15px;">'+'<b>'+qnum+'</b>'+'. <input type="text" name= "qContent" class="qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">'
+							+'<select class="aType" name="aType" style="margin-left:10px; margin-right:10px;" >'
 							+'<option value="default" selected disabled>선택</option>'
 							+'<option value="short">단답형</option>'
 							+'<option value="long">장문형</option>'
@@ -106,12 +106,12 @@
 	$(document).on('click','.addsubbtn',function(){
 		if(num < 2){
 			num ++;
-			$(this).parent().append('<p font-size:13px; class="answer">'+num+'. <input type="text" style="font-size:13px; height:23px;">&nbsp;'
+			$(this).parent().append('<p font-size:13px; class="ex">'+num+'. <input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
 								+'<button type="button" class="delsubbtn">삭제</button>');
 		} else if(num >= 2 && num < 10){
 			num++;
 			$(this).parent().find('.delsubbtn').hide();
-			$(this).parent().append('<p font-size:13px; class="answer">'+num+'. <input type="text" style="font-size:13px; height:23px;">&nbsp;'
+			$(this).parent().append('<p font-size:13px; class="ex">'+num+'. <input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
 					+'<button type="button" class="delsubbtn" >삭제</button>');
 			
 		} else if(num >= 10){
@@ -144,27 +144,41 @@
 		let qFormatlist = [];
 		
 		$('.qFormat').each(function(){
-			let answerlist = [];
+			let qAnswerlist = [];
 
 			$(this).find('.answer').each(function(){
-				let answer = {};
-				answerlist.push(answer)	
+				let qAnswer = {};
+				qAnswer.aContent = $(this).parent().find('.answer').val();
+				qAnswerlist.push(qAnswer);
+					
 			});
 
-			let qFormat ={
-						qContent:$(this).find('.qContent').val(),
-						aType	:$(this).find('.aType').val(),
-						answerlist:[]
+			let qFormat ={	question:{
+								qContent:$(this).find('.qContent').val(),
+								aType	:$(this).find('.aType').val(),
+							},
+							qAnswerlist:qAnswerlist
 			};
 			qFormatlist.push(qFormat);
 		});
 
 		let survey = {
 					sTitle:$('#survey').find('.sTitle').val(),
-					sDescription:$('#survey').find('.sDescription').val(),
+					sDesc:$('#survey').find('.sDescription').val(),
 					qFormatlist:qFormatlist
 			}
-		console.log(survey);
+		let surveyresult = JSON.stringify(survey);
+
+		$.ajax({
+				method: "POST",
+				url: "/registSurvey",
+				data: surveyresult,
+				contentType: "application/json",
+				success: function(data){
+							let url="/";
+							location.replace(url);
+					}
+		})
 	});
 </script>	
 </body>

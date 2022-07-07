@@ -1,6 +1,10 @@
 package com.survey.example.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.survey.example.domain.Qformat;
+import com.survey.example.domain.Question;
 import com.survey.example.domain.Survey;
 import com.survey.example.domain.User;
 import com.survey.example.service.SurveyService;
@@ -21,7 +29,7 @@ public class Controller {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userservice;
 	@Autowired SurveyService surveyservice;
-
+	
 
 
 	
@@ -82,10 +90,20 @@ public class Controller {
 	}
 	
 	@RequestMapping("/registSurvey")
-	public String registSurvey() {
+	public String registSurvey(Model model,@RequestBody Survey survey) {
+		surveyservice.registSurvey(survey);
+		Question question = new Question();
+		List<Qformat> qFormatlist = survey.getqFormatlist();
+		
+		surveyservice.registQuestion(question);
+		
 		return "/index";
 	}
-	
+	@RequestMapping("/detailSurvey")
+	public String detailSurvey(Model model) {
+		
+		return"/detailSurvey";
+	}
 	@RequestMapping("/main")
 	public String joinSurvey() {
 		

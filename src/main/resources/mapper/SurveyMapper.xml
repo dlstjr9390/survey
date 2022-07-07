@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.survey.example.mapper.BoardMapper">
+<mapper namespace="com.survey.example.mapper.SurveyMapper">
 	<!-- Survey ResultMap -->
 	<resultMap type="com.survey.example.domain.Survey" id="SurveyMap">
-		<result property="sNum" column="s_num"></result>
+		<result property="sIdx" column="s_idx"></result>
 		<result property="sTitle" column="s_title"></result>
 		<result property="sContent" column="s_content"></result>
 		<result property="sViews" column="s_views"></result>
 		<result property="sDatetime" column="s_datetime"></result>
 	</resultMap>
 	
+<!-- 	<select id="selectSurveyList" resultMap="SurveyMap">
+		SELECT 	@sNum := @sNum - 1 as sNum,
+				sIdx,
+				sTitle,
+				sContent,
+				sViews,
+				sDatetime
+		
+		FROM	survey_board as ta,
+				(SELECT @sNum := (SELECT COUNT(*) - #{pagenum}+1 FROM survey_board)) tb
+		
+		ORDER BY	idx desc
+		
+		LIMIT	#{pagenum}, 10		
+	</select>
+ -->	
+ 	<insert id="registSurvey" parameterType="survey">
+ 		INSERT INTO survey_board(
+ 					s_title,
+ 					s_description
+ 				
+ 		) VALUES (
+ 			#{sTitle},
+ 			#{sDesc}
+ 		)
+		<selectKey keyProperty="sIdx" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+ 	</insert>
+ 	
+ 	<insert id="registQuestion" parameterType="Question">
+ 		INSERT INTO survey_question(
+ 					q_content,
+ 					a_type,
+ 					s_idx
+ 		) VAlUES(
+ 			#{qContent},
+ 			#{aType},
+ 			#{sIdx}
+ 			
+ 		)
+ 	</insert>
+ 
 </mapper>
