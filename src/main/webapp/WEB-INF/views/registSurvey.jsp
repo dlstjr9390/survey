@@ -138,6 +138,7 @@
 		}	
 		$(this).closest('div').remove();
 
+	
 	});
 	
 	$(document).on('click','#submit',function(){

@@ -5,27 +5,27 @@
 	<resultMap type="com.survey.example.domain.Survey" id="SurveyMap">
 		<result property="sIdx" column="s_idx"></result>
 		<result property="sTitle" column="s_title"></result>
-		<result property="sContent" column="s_content"></result>
+		<result property="sDesc" column="s_description"></result>
 		<result property="sViews" column="s_views"></result>
 		<result property="sDatetime" column="s_datetime"></result>
 	</resultMap>
 	
-<!-- 	<select id="selectSurveyList" resultMap="SurveyMap">
+ 	<select id="selectSurveyList" resultMap="SurveyMap">
 		SELECT 	@sNum := @sNum - 1 as sNum,
-				sIdx,
-				sTitle,
-				sContent,
-				sViews,
-				sDatetime
+				s_idx,
+				s_title,
+				s_description,
+				s_views,
+				s_datetime
 		
 		FROM	survey_board as ta,
-				(SELECT @sNum := (SELECT COUNT(*) - #{pagenum}+1 FROM survey_board)) tb
+				(SELECT @sNum := (SELECT COUNT(*) - #{pageNum}+1 FROM survey_board)) tb
 		
-		ORDER BY	idx desc
+		ORDER BY	s_idx desc
 		
-		LIMIT	#{pagenum}, 10		
+		LIMIT	#{pageNum}, 10		
 	</select>
- -->	
+		
  	<insert id="registSurvey" parameterType="survey">
  		INSERT INTO survey_board(
  					s_title,
@@ -51,6 +51,26 @@
  			#{sIdx}
  			
  		)
+ 		<selectKey keyProperty="qIdx" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
  	</insert>
- 
+ 	
+ 	<insert id="registAnswer" parameterType="Answer">
+ 		INSERT INTO survey_answer(
+ 					a_num,
+ 					a_content,
+ 					q_idx
+ 		)VALUES(
+ 			#{aNum},
+ 			#{aContent},
+ 			#{qIdx}
+ 		)
+ 	</insert>
+ 	
+ 	<select id="boardcount" resultType="int">
+ 		SELECT COUNT(*) as count
+		FROM	survey_board	
+ 	</select>
+
 </mapper>

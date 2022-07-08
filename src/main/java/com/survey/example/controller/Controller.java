@@ -1,5 +1,6 @@
 package com.survey.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.survey.example.domain.Answer;
+import com.survey.example.domain.Pagination;
 import com.survey.example.domain.Qformat;
 import com.survey.example.domain.Question;
 import com.survey.example.domain.Survey;
@@ -25,6 +28,7 @@ import com.survey.example.service.UserService;
 
 @org.springframework.stereotype.Controller
 public class Controller {
+	int page=1;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userservice;
@@ -91,11 +95,36 @@ public class Controller {
 	
 	@RequestMapping("/registSurvey")
 	public String registSurvey(Model model,@RequestBody Survey survey) {
-		surveyservice.registSurvey(survey);
 		Question question = new Question();
+		Answer answer = new Answer();
 		List<Qformat> qFormatlist = survey.getqFormatlist();
+		List<Answer> aList = new ArrayList<Answer>();
+		int aNum = 1;
 		
-		surveyservice.registQuestion(question);
+		surveyservice.registSurvey(survey);
+		
+		for(Qformat q : qFormatlist) {
+			question = q.getQuestion();
+			question.setsIdx(survey.getsIdx());
+			surveyservice.registQuestion(question);
+			aList = q.getqAnswerlist();
+			
+			for(Answer a : aList) {
+				if(aList.size()>1) {
+					answer.setaNum(aNum);
+					aNum++;
+				} else {
+					answer.setaNum(0);
+					aNum++;
+				}
+				answer.setaContent(a.getaContent());
+				answer.setqIdx(question.getqIdx());
+				
+				surveyservice.registAnswer(answer);
+				
+			}
+		}
+		
 		
 		return "/index";
 	}
@@ -104,10 +133,20 @@ public class Controller {
 		
 		return"/detailSurvey";
 	}
-	@RequestMapping("/main")
-	public String joinSurvey() {
+	
+	@RequestMapping("/ParticipateSurvey")
+	public String ParticipateSurvey(Model model,Pagination pagination) {
 		
+		int count = surveyservice.boardcount();
+		pagination.setCount(count);
+		pagination.setPage(page);
+		pagination.init();
 		
-		return "/main";
+		List<Survey> list = surveyservice.selectSurveyList(pagination);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagination", pagination);
+		
+		return "/surveyList";
 	}
 }

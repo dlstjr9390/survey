@@ -37,7 +37,7 @@
 	<hr>
 	<sec:authorize access="isAuthenticated()">
 		<a href="Before_registSurvey" class="btn btn-primary" role=button>설문조사 만들기</a>&nbsp;
-		<a href="home" class="btn btn-primary" role=button>설문조사 참여하기</a>	
+		<a href="ParticipateSurvey" class="btn btn-primary" role=button>설문조사 참여하기</a>	
 	</sec:authorize>	
 </body>
 </html>
