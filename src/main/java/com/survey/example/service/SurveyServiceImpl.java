@@ -39,4 +39,19 @@ public class SurveyServiceImpl implements SurveyService {
 	public int boardcount() {
 		return surveymapper.boardcount();
 	}
+	
+	@Override
+	public Survey detailboard(Survey survey) {
+		return surveymapper.detailboard(survey);
+	}
+	
+	@Override
+	public List<Question> detailquestion(Survey survey){
+		return surveymapper.detailquestion(survey);
+	}
+	
+	@Override
+	public List<Answer> detailanswer(Question question){
+		return surveymapper.detailanswer(question);
+	}
 }

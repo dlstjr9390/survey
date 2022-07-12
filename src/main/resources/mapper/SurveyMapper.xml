@@ -72,5 +72,37 @@
  		SELECT COUNT(*) as count
 		FROM	survey_board	
  	</select>
+ 	
+ 	<select id="detailboard" resultMap="SurveyMap">
+ 		SELECT 	s_idx,
+ 				s_title,
+ 				s_description
+ 				
+ 		FROM 	survey_board
+ 		
+ 		WHERE	s_idx=#{sIdx}
+ 	</select>
+ 	
+ 	<select id="detailquestion" resultType="Question">
+ 		SELECT 	q_idx as qIdx,
+ 				q_content as qContent,
+ 				a_type as aType,
+ 				s_idx as sIdx
+ 				
+ 		FROM 	survey_question
+ 		
+ 		WHERE	s_idx=#{sIdx}
+ 	</select>
+ 	
+ 	<select id="detailanswer" resultType="Answer">
+ 		SELECT 	a_idx as aIdx,
+ 				a_num as aNum,
+ 				a_content as aContent,
+ 				q_idx as qIdx
+ 				
+ 		FROM 	survey_answer
+ 		
+ 		WHERE	q_idx=#{qIdx}
+ 	</select>
 
 </mapper>

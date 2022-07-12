@@ -110,11 +110,21 @@ public class Controller {
 			aList = q.getqAnswerlist();
 			
 			for(Answer a : aList) {
+				
 				if(aList.size()>1) {
-					answer.setaNum(aNum);
-					aNum++;
+					if(question.getqIdx() == answer.getqIdx()) {
+						answer.setaNum(aNum);
+						aNum++;
+					} else {
+						aNum = 1;
+						answer.setaNum(aNum);
+						aNum ++;
+						
+					}
+					
 				} else {
-					answer.setaNum(0);
+					aNum = 0;
+					answer.setaNum(aNum);
 					aNum++;
 				}
 				answer.setaContent(a.getaContent());
@@ -127,11 +137,6 @@ public class Controller {
 		
 		
 		return "/index";
-	}
-	@RequestMapping("/detailSurvey")
-	public String detailSurvey(Model model) {
-		
-		return"/detailSurvey";
 	}
 	
 	@RequestMapping("/ParticipateSurvey")
@@ -148,5 +153,23 @@ public class Controller {
 		model.addAttribute("pagination", pagination);
 		
 		return "/surveyList";
+	}
+	
+	@RequestMapping("/surveyDetail")
+	public String surveyDetail(Model model,Survey survey) {
+		
+		Survey detailboard = surveyservice.detailboard(survey);
+		List<Question> questionlist = surveyservice.detailquestion(survey);
+		List<Answer> aList = new ArrayList<Answer>();
+		Qformat qFormat = new Qformat();
+		for(Question q: questionlist) {
+			qFormat.setqAnswerlist(surveyservice.detailanswer(q));
+		} // 문제값에 맞춰서 보기 넘기기
+		
+		model.addAttribute("survey", detailboard);
+		model.addAttribute("questionlist", questionlist);
+		model.addAttribute("aList",aList);
+		
+		return "/surveyDetail";
 	}
 }

@@ -13,4 +13,7 @@ public interface SurveyService {
 	public void registQuestion(Question question);
 	public void registAnswer(Answer answer);
 	public int boardcount();
+	public Survey detailboard(Survey survey);
+	public List<Question> detailquestion(Survey survey);
+	public List<Answer> detailanswer(Question question);
 }

@@ -21,19 +21,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <body>
 	<table class="table table-bordered" style="width:80%; ">
+		<tr>
+			<th colspan="5" style="text-align:center;"> 전체 설문조사 수 : ${pagination.count}</th>
+		<tr>	
 		<c:forEach items="${list}" var="item" varStatus="status">
-			<tr>
-				<th colspan="5" style="text-align:center;"> 전체 설문조사 수 : ${pagination.count}</th>
-			<tr>
 				<th style="width:5%;">No</th>
 				<th style="width:35%">설문 제목</th>
 				<th style="width:20%">설명</th>
 				<th style="width:10%">조회수</th>
 				<th>등록 날짜</th>
-			</tr>
 			<tr>
 				<td>${item.sNum }</td>
-				<td>${item.sTitle }</td>
+				<td><a href="/surveyDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
 				<td>${item.sDesc }</td>
 				<td>${item.sViews }</td>
 				<td>${item.sDatetime }</td>
@@ -50,6 +49,29 @@
 				</c:when>
 			</c:choose>
 			
+			<c:forEach var="i" begin="${pagination.startPage }" end="${pagination.endPage }" step="1">
+				<c:choose>
+					<c:when test="${pagination.page eq i }">
+						<li class="lipagination">
+							<span>${i}</span>
+						</li>
+					</c:when>
+					
+					<c:when test="${pagination.page ne i }">
+						<li class="lipagination">
+							<a href="/?page=${i }">${i}</a>
+						</li>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pagination.nextPage le pagination.lastPage}">
+					<li class="lipagination">
+						<a href="/?page=${pagination.nextPage }">▶</a>
+					</li>
+				</c:when>
+			</c:choose>
 		</ul>
 	</div>
 </body>
