@@ -9,6 +9,8 @@ public class Question {
 	private String aType;
 	private int sIdx;
 
+	private List<Answer> qAnswerlist;
+	
 	public int getqIdx() {
 		return qIdx;
 	}
@@ -39,6 +41,11 @@ public class Question {
 	public void setsIdx(int sIdx) {
 		this.sIdx = sIdx;
 	}
-	
+	public List<Answer> getqAnswerlist() {
+		return qAnswerlist;
+	}
+	public void setqAnswerlist(List<Answer> qAnswerlist) {
+		this.qAnswerlist = qAnswerlist;
+	}
 
 }

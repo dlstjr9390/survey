@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.survey.example.domain.Answer;
 import com.survey.example.domain.Pagination;
-import com.survey.example.domain.Qformat;
 import com.survey.example.domain.Question;
 import com.survey.example.domain.Survey;
 import com.survey.example.domain.User;
@@ -97,22 +96,21 @@ public class Controller {
 	public String registSurvey(Model model,@RequestBody Survey survey) {
 		Question question = new Question();
 		Answer answer = new Answer();
-		List<Qformat> qFormatlist = survey.getqFormatlist();
+		List<Question> questionlist = survey.getQuestionlist();
 		List<Answer> aList = new ArrayList<Answer>();
 		int aNum = 1;
 		
 		surveyservice.registSurvey(survey);
 		
-		for(Qformat q : qFormatlist) {
-			question = q.getQuestion();
-			question.setsIdx(survey.getsIdx());
-			surveyservice.registQuestion(question);
+		for(Question q : questionlist) {
+			q.setsIdx(survey.getsIdx());
+			surveyservice.registQuestion(q);
 			aList = q.getqAnswerlist();
 			
 			for(Answer a : aList) {
 				
 				if(aList.size()>1) {
-					if(question.getqIdx() == answer.getqIdx()) {
+					if(q.getqIdx() == answer.getqIdx()) {
 						answer.setaNum(aNum);
 						aNum++;
 					} else {
@@ -128,7 +126,7 @@ public class Controller {
 					aNum++;
 				}
 				answer.setaContent(a.getaContent());
-				answer.setqIdx(question.getqIdx());
+				answer.setqIdx(q.getqIdx());
 				
 				surveyservice.registAnswer(answer);
 				
@@ -157,18 +155,11 @@ public class Controller {
 	
 	@RequestMapping("/surveyDetail")
 	public String surveyDetail(Model model,Survey survey) {
-		
+
 		Survey detailboard = surveyservice.detailboard(survey);
-		List<Question> questionlist = surveyservice.detailquestion(survey);
-		List<Answer> aList = new ArrayList<Answer>();
-		Qformat qFormat = new Qformat();
-		for(Question q: questionlist) {
-			qFormat.setqAnswerlist(surveyservice.detailanswer(q));
-		} // 문제값에 맞춰서 보기 넘기기
-		
+
 		model.addAttribute("survey", detailboard);
-		model.addAttribute("questionlist", questionlist);
-		model.addAttribute("aList",aList);
+
 		
 		return "/surveyDetail";
 	}

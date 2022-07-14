@@ -12,7 +12,7 @@ public class Survey {
 	private Question question;
 	private Answer answer;
 	
-	public List<Qformat> qFormatlist;
+	List<Question> questionlist;
 	
 	public void SetSurvey(Survey survey) {
 		this.sTitle = survey.getsDatetime();
@@ -59,32 +59,29 @@ public class Survey {
 		this.sDatetime = sDatetime;
 	}
 
-	public List<Qformat> getqFormatlist() {
-		return qFormatlist;
-	}
-
-	public void setqFormatlist(List<Qformat> qFormatlist) {
-		this.qFormatlist = qFormatlist;
-	}
-
-
 	public Question getQuestion() {
 		return question;
 	}
-
-
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-
-
 	public Answer getAnswer() {
 		return answer;
 	}
-
-
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
 	}
+
+
+	public List<Question> getQuestionlist() {
+		return questionlist;
+	}
+
+
+	public void setQuestionlist(List<Question> questionlist) {
+		this.questionlist = questionlist;
+	}
+	
+	
 	
 }

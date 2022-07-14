@@ -142,8 +142,8 @@
 	});
 	
 	$(document).on('click','#submit',function(){
-		let qFormatlist = [];
-		
+		let questionlist = [];
+		let qNum = 1;
 		$('.qFormat').each(function(){
 			let qAnswerlist = [];
 
@@ -154,19 +154,20 @@
 					
 			});
 
-			let qFormat ={	question:{
-								qContent:$(this).find('.qContent').val(),
-								aType	:$(this).find('.aType').val(),
-							},
+			let question ={
+							qContent:$(this).find('.qContent').val(),
+							aType	:$(this).find('.aType').val(),
+							qNum :qNum,
 							qAnswerlist:qAnswerlist
 			};
-			qFormatlist.push(qFormat);
+			questionlist.push(question);
+			qNum++;
 		});
 
 		let survey = {
 					sTitle:$('#survey').find('.sTitle').val(),
 					sDesc:$('#survey').find('.sDescription').val(),
-					qFormatlist:qFormatlist
+					questionlist : questionlist
 			}
 		let surveyresult = JSON.stringify(survey);
 

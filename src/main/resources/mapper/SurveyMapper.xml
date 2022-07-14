@@ -8,7 +8,23 @@
 		<result property="sDesc" column="s_description"></result>
 		<result property="sViews" column="s_views"></result>
 		<result property="sDatetime" column="s_datetime"></result>
+		
+		<collection property="questionlist" ofType="Question" javaType="java.util.List">
+			<result property="qIdx" column="q_idx" ></result>
+			<result property="qContent" column="q_content"></result>
+			<result property="aType" column="a_type"></result>
+			<result property="sIdx" column="s_idx"></result>
+			<result property="qNum" column="q_num"></result>
+
+			
+			<collection property="qAnswerlist" ofType="Answer" javaType="java.util.List">
+				<result property="aContent" column="a_content"></result>
+				<result property="aNum" column="a_num"></result>
+				<result property="qIdx" column="q_idx"></result>				
+			</collection>
+		</collection>
 	</resultMap>
+	
 	
  	<select id="selectSurveyList" resultMap="SurveyMap">
 		SELECT 	@sNum := @sNum - 1 as sNum,
@@ -44,11 +60,13 @@
  		INSERT INTO survey_question(
  					q_content,
  					a_type,
- 					s_idx
+ 					s_idx,
+ 					q_num
  		) VAlUES(
  			#{qContent},
  			#{aType},
- 			#{sIdx}
+ 			#{sIdx},
+ 			#{qNum}
  			
  		)
  		<selectKey keyProperty="qIdx" resultType="int">
@@ -74,35 +92,14 @@
  	</select>
  	
  	<select id="detailboard" resultMap="SurveyMap">
- 		SELECT 	s_idx,
- 				s_title,
- 				s_description
- 				
- 		FROM 	survey_board
+ 		SELECT 	*
+				
+ 		FROM 	survey_board ta
+ 		LEFT JOIN	survey_question tb ON ta.s_idx = tb.s_idx
+ 		LEFT JOIN	survey_answer tc ON tb.q_idx = tc.q_idx
  		
- 		WHERE	s_idx=#{sIdx}
+ 		WHERE	ta.s_idx = #{sIdx}
  	</select>
- 	
- 	<select id="detailquestion" resultType="Question">
- 		SELECT 	q_idx as qIdx,
- 				q_content as qContent,
- 				a_type as aType,
- 				s_idx as sIdx
- 				
- 		FROM 	survey_question
- 		
- 		WHERE	s_idx=#{sIdx}
- 	</select>
- 	
- 	<select id="detailanswer" resultType="Answer">
- 		SELECT 	a_idx as aIdx,
- 				a_num as aNum,
- 				a_content as aContent,
- 				q_idx as qIdx
- 				
- 		FROM 	survey_answer
- 		
- 		WHERE	q_idx=#{qIdx}
- 	</select>
+
 
 </mapper>
