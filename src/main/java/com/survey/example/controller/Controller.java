@@ -94,7 +94,7 @@ public class Controller {
 	
 	@RequestMapping("/registSurvey")
 	public String registSurvey(Model model,@RequestBody Survey survey) {
-		Question question = new Question();
+
 		Answer answer = new Answer();
 		List<Question> questionlist = survey.getQuestionlist();
 		List<Answer> aList = new ArrayList<Answer>();
@@ -162,5 +162,13 @@ public class Controller {
 
 		
 		return "/surveyDetail";
+	}
+	
+	@RequestMapping("/responseSurvey")
+	public String responseSurvey(Model model,@RequestBody Survey survey) {
+		
+	
+		
+		return "/index";
 	}
 }
