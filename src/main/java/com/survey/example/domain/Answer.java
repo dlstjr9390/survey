@@ -4,7 +4,7 @@ public class Answer {
 	public String aContent;
 	public int aNum;
 	public int qIdx;
-	
+	private int sIdx;
 	
 	public int getaNum() {
 		return aNum;
@@ -29,6 +29,15 @@ public class Answer {
 	public void setqIdx(int qIdx) {
 		this.qIdx = qIdx;
 	}
+
+	public int getsIdx() {
+		return sIdx;
+	}
+
+	public void setsIdx(int sIdx) {
+		this.sIdx = sIdx;
+	}
+	
 	
 	
 }

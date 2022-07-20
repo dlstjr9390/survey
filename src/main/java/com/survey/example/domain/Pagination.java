@@ -9,6 +9,7 @@ public class Pagination {
 	private int lastPage;
 	private int nextPage;
 	private int prevPage;
+	private String uId;
 	
 	public final int pageUnit;
 	public final int perPage;
@@ -85,6 +86,14 @@ public class Pagination {
 	}
 	public int getPerPage() {
 		return perPage;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 	
 	

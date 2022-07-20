@@ -9,24 +9,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<h1>설문조사</h1>
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication property="principal" var="principal"/>
 				<h3>
-					<span style="color:#808080">${principal.username }</span>님&nbsp; 
+					<span style="color:#808080">${principal.uName }</span>님&nbsp; 
 					<a style="text-align:right ; color:red;"href="/logout">로그아웃</a>&nbsp;
 					<sec:authorize access="isAuthenticated()">
 		 					<a style="font-size:15px;"href="/user/info">내 정보</a>
 		 					<a style="font-size:15px;"href="/admin">관리자</a>
+		 					<a style="font-size:15px;"href="surveyStatistic" class="stat">통계</a>
 					</sec:authorize>			
 				</h3>
 		</sec:authorize>					
@@ -40,4 +43,18 @@
 		<a href="ParticipateSurvey" class="btn btn-primary" role=button>설문조사 참여하기</a>	
 	</sec:authorize>	
 </body>
+<script>
+	$(document).on('click','.stat',function(){
+		let uId = ${principal.username};
+
+		$.ajax({
+			method: "POST",
+			url: "/surveyStatistic",
+			data: uId,
+
+			//controller로 id넘기기
+			//
+		})
+	});
+</script>
 </html>

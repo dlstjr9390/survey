@@ -82,13 +82,13 @@
 			let questionlist =[];
 			
 			$('.Question').each(function(){
-				let responselist = [];
+				let qAnswerlist = [];
 				if($(this).parent().find('.answer').hasClass('answer') == true){
 					$(this).parent().find('input:checked').each(function(){
 						let response={};
 	
 						response.aContent = $(this).val();	
-						responselist.push(response);
+						qAnswerlist.push(response);
 	
 							
 					});
@@ -97,7 +97,7 @@
 						let response={};
 						
 						response.aContent = $(this).val();
-						responselist.push(response);	
+						qAnswerlist.push(response);	
 					});
 						
 				} else{
@@ -105,7 +105,7 @@
 						let response={};
 						
 						response.aContent = $(this).val();
-						responselist.push(response);	
+						qAnswerlist.push(response);	
 					});
 				}	
 				
@@ -113,7 +113,7 @@
 								qNum	: $(this).find('.qNum').text(),
 								qContent : $(this).find('.qContent').text(),
 								qIdx : $(this).attr('id'),
-								responselist : responselist
+								qAnswerlist : qAnswerlist
 				}
 				questionlist.push(question);
 			});
@@ -127,10 +127,8 @@
 						}
 			
 			let responseresult = JSON.stringify(survey);
-
-			console.log(survey);
 			
-		/*	$.ajax({
+			$.ajax({
 				method: "POST",
 				url: "/responseSurvey",
 				data: responseresult,
@@ -139,7 +137,7 @@
 							let url="/";
 							location.replace(url);
 				}			
-			})*/
+			})
 		});
 	</script>
 </body>

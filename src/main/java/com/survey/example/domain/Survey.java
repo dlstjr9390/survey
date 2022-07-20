@@ -9,6 +9,7 @@ public class Survey {
 	private String sDesc;
 	private int sViews;
 	private String sDatetime;
+	private String uId;
 	private Question question;
 	private Answer answer;
 	
@@ -57,6 +58,14 @@ public class Survey {
 	}
 	public void setsDatetime(String sDatetime) {
 		this.sDatetime = sDatetime;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 
 	public Question getQuestion() {

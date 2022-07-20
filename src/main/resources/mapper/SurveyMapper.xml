@@ -8,6 +8,7 @@
 		<result property="sDesc" column="s_description"></result>
 		<result property="sViews" column="s_views"></result>
 		<result property="sDatetime" column="s_datetime"></result>
+		<result property="sNum" column="sNum"></result>
 		
 		<collection property="questionlist" ofType="Question" javaType="java.util.List">
 			<result property="qIdx" column="q_idx" ></result>
@@ -25,7 +26,7 @@
 		</collection>
 	</resultMap>
 	
-	
+	<!-- 설문 목록 전체 -->
  	<select id="selectSurveyList" resultMap="SurveyMap">
 		SELECT 	@sNum := @sNum - 1 as sNum,
 				s_idx,
@@ -35,21 +36,42 @@
 				s_datetime
 		
 		FROM	survey_board as ta,
-				(SELECT @sNum := (SELECT COUNT(*) - #{pageNum}+1 FROM survey_board)) tb
+				(SELECT @sNum := (SELECT COUNT(*)-#{pageNum}+1 FROM survey_board)) tb
 		
 		ORDER BY	s_idx desc
 		
 		LIMIT	#{pageNum}, 10		
 	</select>
+	
+	<!-- 내가 만든 설문 목록 불러오기 -->
+	<select id="selectStatList" resultMap="SurveyMap">
+		SELECT 	@sNum := @sNum - 1 as sNum,
+				s_idx,
+				s_title,
+				s_description,
+				s_views,
+				s_datetime
 		
+		FROM	survey_board as ta,
+				(SELECT @sNum := (SELECT COUNT(*)-#{pageNum}+1 FROM survey_board)) tb
+				
+		WHERE u_id = #{uId}
+		
+		ORDER BY	s_idx desc
+		
+		LIMIT	#{pageNum}, 10		
+	</select>	
+	
  	<insert id="registSurvey" parameterType="survey">
  		INSERT INTO survey_board(
  					s_title,
- 					s_description
+ 					s_description,
+ 					u_id
  				
  		) VALUES (
  			#{sTitle},
- 			#{sDesc}
+ 			#{sDesc},
+ 			#{uId}
  		)
 		<selectKey keyProperty="sIdx" resultType="int">
 			SELECT LAST_INSERT_ID()
@@ -91,6 +113,11 @@
 		FROM	survey_board	
  	</select>
  	
+ 	<select id="statboardcount" resultType="int">
+ 		SELECT	COUNT(*) as count
+ 		FROM	survey_board
+ 		WHERE	u_id = #{uId}
+ 	</select>
  	<select id="detailboard" resultMap="SurveyMap">
  		SELECT 	*
 				
@@ -101,5 +128,15 @@
  		WHERE	ta.s_idx = #{sIdx}
  	</select>
 
-
+	<insert id="registResponse" parameterType="Answer">
+		INSERT INTO survey_stat(
+					s_idx,
+					q_idx,
+					response
+		)VALUES(
+			#{sIdx},
+			#{qIdx},
+			#{aContent}
+		)
+	</insert>
 </mapper>

@@ -141,6 +141,9 @@ public class Controller {
 	public String ParticipateSurvey(Model model,Pagination pagination) {
 		
 		int count = surveyservice.boardcount();
+		if(pagination.getPage()>0) {
+			page = pagination.getPage();
+		}
 		pagination.setCount(count);
 		pagination.setPage(page);
 		pagination.init();
@@ -167,8 +170,34 @@ public class Controller {
 	@RequestMapping("/responseSurvey")
 	public String responseSurvey(Model model,@RequestBody Survey survey) {
 		
-	
+		List<Question> questionlist = survey.getQuestionlist();
+		for(Question q : questionlist) {
+			List<Answer> aList = q.getqAnswerlist();
+			for(Answer a : aList) {
+				a.setsIdx(survey.getsIdx());
+				a.setqIdx(q.getqIdx());
+				surveyservice.registResponse(a);
+			}
+		}
 		
 		return "/index";
+	}
+	
+	@RequestMapping("/surveyStatistic")
+	public String surveyStatistic(Model model,Pagination pagination) {
+		
+		int count = surveyservice.statboardcount(pagination);
+		if(pagination.getPage()>0) {
+			page = pagination.getPage();
+		}
+		pagination.setCount(count);
+		pagination.setPage(page);
+		pagination.init();
+		
+		List<Survey> list = surveyservice.selectStatList(pagination);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagination", pagination);
+		return "/MysurveyList";
 	}
 }

@@ -23,9 +23,10 @@
 		var qnum = 1;
 	</script>
 	<div style="margin-left:10px;">
+		<sec:authentication property="principal" var="principal"/>
 		<h1>설문조사 만들기</h1>
 			<div id="survey">
-				<p><input type="text" class="sTitle" placeholder="설문조사의 제목을 작성해주세요." style="width:40%; height:40px; font-size:16px;"></p>			
+				<p><input type="text" class="sTitle" placeholder="설문조사의 제목을 작성해주세요." id="${principal.username }" style="width:40%; height:40px; font-size:16px;"></p>			
 				<p><input type="text" class="sDescription" placeholder="설명" style="width:30%;"></p>
 				<hr>
 				<div id="qFormat">
@@ -167,7 +168,8 @@
 		let survey = {
 					sTitle:$('#survey').find('.sTitle').val(),
 					sDesc:$('#survey').find('.sDescription').val(),
-					questionlist : questionlist
+					questionlist : questionlist,
+					uId:$('#survey').find('.sTitle').attr('id')
 			}
 		let surveyresult = JSON.stringify(survey);
 

@@ -21,6 +21,11 @@ public class SurveyServiceImpl implements SurveyService {
 	}
 	
 	@Override
+	public List<Survey> selectStatList(Pagination pagination){
+		return surveymapper.selectStatList(pagination);
+	}
+	
+	@Override
 	public void registSurvey(Survey survey) {
 		surveymapper.registSurvey(survey);
 	}
@@ -41,6 +46,11 @@ public class SurveyServiceImpl implements SurveyService {
 	}
 	
 	@Override
+	public int statboardcount(Pagination pagination) {
+		return surveymapper.statboardcount(pagination);
+	}
+	
+	@Override
 	public Survey detailboard(Survey survey) {
 		return surveymapper.detailboard(survey);
 	}
@@ -53,5 +63,10 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public List<Answer> detailanswer(Question question){
 		return surveymapper.detailanswer(question);
+	}
+	
+	@Override
+	public void registResponse(Answer answer) {
+		surveymapper.registResponse(answer);
 	}
 }

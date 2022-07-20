@@ -55,11 +55,12 @@
 		</c:forEach>	
 	</table>
 	<div>
+		<sec:authentication property="principal" var="principal"/>
 		<ul class="ulpagination">
 			<c:choose>
 				<c:when test = "${pagination.prevPage lt pagination.nextPage and prevPage gt 0}">
 					<li class="lipagination">
-						<a href="/ParticipateSurvey?page=${pagination.prevPage }">◀</a>
+						<a href="/SurveyStatistic?page=${pagination.prevPage }">◀</a>
 					</li>
 				</c:when>
 			</c:choose>
@@ -74,7 +75,7 @@
 					
 					<c:when test="${pagination.page ne i }">
 						<li class="lipagination">
-							<a href="/ParticipateSurvey?page=${i }">${i}</a>
+							<a href="/SurveyStatistic?page=${i }">${i}</a>
 						</li>
 					</c:when>
 				</c:choose>
@@ -83,7 +84,7 @@
 			<c:choose>
 				<c:when test="${pagination.nextPage le pagination.lastPage}">
 					<li class="lipagination">
-						<a href="/ParticipateSurvey?page=${pagination.nextPage }">▶</a>
+						<a href="/SurveyStatistic?page=${pagination.nextPage }?">▶</a>
 					</li>
 				</c:when>
 			</c:choose>
