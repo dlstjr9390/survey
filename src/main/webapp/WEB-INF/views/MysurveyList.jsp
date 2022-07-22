@@ -47,7 +47,7 @@
 				<th>등록 날짜</th>
 			<tr>
 				<td>${item.sNum }</td>
-				<td><a href="/surveyDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
+				<td><a href="/statisticDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
 				<td>${item.sDesc }</td>
 				<td>${item.sViews }</td>
 				<td>${item.sDatetime }</td>
@@ -55,7 +55,6 @@
 		</c:forEach>	
 	</table>
 	<div>
-		<sec:authentication property="principal" var="principal"/>
 		<ul class="ulpagination">
 			<c:choose>
 				<c:when test = "${pagination.prevPage lt pagination.nextPage and prevPage gt 0}">

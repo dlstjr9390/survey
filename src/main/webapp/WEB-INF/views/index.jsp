@@ -29,7 +29,7 @@
 					<sec:authorize access="isAuthenticated()">
 		 					<a style="font-size:15px;"href="/user/info">내 정보</a>
 		 					<a style="font-size:15px;"href="/admin">관리자</a>
-		 					<a style="font-size:15px;"href="surveyStatistic" class="stat">통계</a>
+		 					<a style="font-size:15px;"href="/surveyStatistic?uId=${principal.username}">통계</a>
 					</sec:authorize>			
 				</h3>
 		</sec:authorize>					
@@ -38,23 +38,13 @@
 				<a href="/beforeSignUp">회원가입</a>
 			</sec:authorize>
 	<hr>
-	<sec:authorize access="isAuthenticated()">
-		<a href="Before_registSurvey" class="btn btn-primary" role=button>설문조사 만들기</a>&nbsp;
-		<a href="ParticipateSurvey" class="btn btn-primary" role=button>설문조사 참여하기</a>	
-	</sec:authorize>	
+	<div style="margin-left:5px;">
+		<sec:authorize access="isAuthenticated()">
+			<a href="Before_registSurvey" class="btn btn-primary" role=button>설문조사 만들기</a>&nbsp;
+			<a href="ParticipateSurvey" class="btn btn-primary" role=button>설문조사 참여하기</a>	
+		</sec:authorize>
+	</div>
 </body>
 <script>
-	$(document).on('click','.stat',function(){
-		let uId = ${principal.username};
-
-		$.ajax({
-			method: "POST",
-			url: "/surveyStatistic",
-			data: uId,
-
-			//controller로 id넘기기
-			//
-		})
-	});
 </script>
 </html>

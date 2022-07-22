@@ -14,6 +14,7 @@ public class Survey {
 	private Answer answer;
 	
 	List<Question> questionlist;
+	List<Response> statlist; 
 	
 	public void SetSurvey(Survey survey) {
 		this.sTitle = survey.getsDatetime();
@@ -90,6 +91,17 @@ public class Survey {
 	public void setQuestionlist(List<Question> questionlist) {
 		this.questionlist = questionlist;
 	}
+
+
+	public List<Response> getStatlist() {
+		return statlist;
+	}
+
+
+	public void setStatlist(List<Response> statlist) {
+		this.statlist = statlist;
+	}
+	
 	
 	
 	

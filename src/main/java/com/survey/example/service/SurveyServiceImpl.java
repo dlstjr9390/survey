@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.survey.example.domain.Answer;
 import com.survey.example.domain.Pagination;
 import com.survey.example.domain.Question;
+import com.survey.example.domain.Response;
 import com.survey.example.domain.Survey;
 import com.survey.example.mapper.SurveyMapper;
 
@@ -68,5 +69,10 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public void registResponse(Answer answer) {
 		surveymapper.registResponse(answer);
+	}
+	
+	@Override
+	public List<Response> statdetail(Survey survey){
+		return surveymapper.statdetail(survey);
 	}
 }

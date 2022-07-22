@@ -23,7 +23,14 @@
 				<result property="aNum" column="a_num"></result>
 				<result property="qIdx" column="q_idx"></result>				
 			</collection>
-		</collection>
+		</collection>	
+	</resultMap>
+	<resultMap type="com.survey.example.domain.Response" id="ResponseMap">
+				<result property="sSIdx" column="sS_idx"></result>
+				<result property="sIdx" column="s_idx"></result>
+				<result property="qIdx" column="q_idx"></result>
+				<result property="response" column="response"></result>
+				<result property="uId" column="u_id"></result>
 	</resultMap>
 	
 	<!-- 설문 목록 전체 -->
@@ -126,6 +133,12 @@
  		LEFT JOIN	survey_answer tc ON tb.q_idx = tc.q_idx
  		
  		WHERE	ta.s_idx = #{sIdx}
+ 	</select>
+ 	
+ 	<select id="statdetail" resultMap="ResponseMap">
+ 		SELECT *
+ 		FROM survey_stat
+ 		WHERE s_idx = #{sIdx}
  	</select>
 
 	<insert id="registResponse" parameterType="Answer">

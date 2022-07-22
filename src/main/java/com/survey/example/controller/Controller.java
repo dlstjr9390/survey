@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.survey.example.domain.Answer;
 import com.survey.example.domain.Pagination;
 import com.survey.example.domain.Question;
+import com.survey.example.domain.Response;
 import com.survey.example.domain.Survey;
 import com.survey.example.domain.User;
 import com.survey.example.service.SurveyService;
@@ -184,8 +185,8 @@ public class Controller {
 	}
 	
 	@RequestMapping("/surveyStatistic")
-	public String surveyStatistic(Model model,Pagination pagination) {
-		
+	public String surveyStatistic(Model model, Pagination pagination) {
+
 		int count = surveyservice.statboardcount(pagination);
 		if(pagination.getPage()>0) {
 			page = pagination.getPage();
@@ -198,6 +199,19 @@ public class Controller {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pagination", pagination);
+		
 		return "/MysurveyList";
+	}
+	
+	@RequestMapping("/statisticDetail")
+	public String statisticDetail(Model model, Survey survey) {
+		
+		survey = surveyservice.detailboard(survey);
+		List<Response> responselist = surveyservice.statdetail(survey);
+		
+		model.addAttribute("responselist",responselist);
+		model.addAttribute("survey",survey);
+		
+		return "/statistic";
 	}
 }
