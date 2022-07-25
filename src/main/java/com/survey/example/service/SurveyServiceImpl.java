@@ -52,6 +52,11 @@ public class SurveyServiceImpl implements SurveyService {
 	}
 	
 	@Override
+	public int responsecount(Answer answer){
+		return surveymapper.responsecount(answer);
+	}
+	
+	@Override
 	public Survey detailboard(Survey survey) {
 		return surveymapper.detailboard(survey);
 	}
@@ -74,5 +79,9 @@ public class SurveyServiceImpl implements SurveyService {
 	@Override
 	public List<Response> statdetail(Survey survey){
 		return surveymapper.statdetail(survey);
+	}
+
+	public void updateRes(Survey survey) {
+		surveymapper.updateRes(survey);
 	}
 }

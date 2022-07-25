@@ -7,11 +7,11 @@ public class Survey {
 	private int sIdx;
 	private String sTitle;
 	private String sDesc;
-	private int sViews;
 	private String sDatetime;
 	private String uId;
 	private Question question;
 	private Answer answer;
+	private int rescount;
 	
 	List<Question> questionlist;
 	List<Response> statlist; 
@@ -47,12 +47,6 @@ public class Survey {
 	}
 	public void setsDesc(String sDesc) {
 		this.sDesc = sDesc;
-	}
-	public int getsViews() {
-		return sViews;
-	}
-	public void setsViews(int sViews) {
-		this.sViews = sViews;
 	}
 	public String getsDatetime() {
 		return sDatetime;
@@ -100,6 +94,16 @@ public class Survey {
 
 	public void setStatlist(List<Response> statlist) {
 		this.statlist = statlist;
+	}
+
+
+	public int getRescount() {
+		return rescount;
+	}
+
+
+	public void setRescount(int rescount) {
+		this.rescount = rescount;
 	}
 	
 	

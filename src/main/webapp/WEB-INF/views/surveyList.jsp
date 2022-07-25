@@ -43,13 +43,13 @@
 				<th style="width:5%;">No</th>
 				<th style="width:35%">설문 제목</th>
 				<th style="width:20%">설명</th>
-				<th style="width:10%">조회수</th>
+				<th style="width:10%">참여</th>
 				<th>등록 날짜</th>
 			<tr>
 				<td>${item.sNum }</td>
 				<td><a href="/surveyDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
 				<td>${item.sDesc }</td>
-				<td>${item.sViews }</td>
+				<td>${item.rescount }</td>
 				<td>${item.sDatetime }</td>
 			</tr>
 		</c:forEach>	

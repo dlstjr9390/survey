@@ -180,7 +180,7 @@ public class Controller {
 				surveyservice.registResponse(a);
 			}
 		}
-		
+		surveyservice.updateRes(survey);
 		return "/index";
 	}
 	
@@ -207,7 +207,15 @@ public class Controller {
 	public String statisticDetail(Model model, Survey survey) {
 		
 		survey = surveyservice.detailboard(survey);
+		List<Question> questionlist = survey.getQuestionlist();
+		for(Question q : questionlist) {
+			List<Answer> aList = q.getqAnswerlist();
+			for(Answer a: aList) {
+				a.setCount(surveyservice.responsecount(a));
+			}
+		}
 		List<Response> responselist = surveyservice.statdetail(survey);
+		
 		
 		model.addAttribute("responselist",responselist);
 		model.addAttribute("survey",survey);

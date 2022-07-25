@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,7 @@
 	<h2>${survey.sDesc}</h2>
 	<br>
 	<hr>
+	<sec:authentication property="principal" var="principal"/>
 	<c:forEach items="Survey" var="item" varStatus="status">
 		<c:forEach items="${survey.questionlist}" var="qitem" varStatus="status">
 			<div style="margin-left:10px; ">
@@ -80,6 +82,7 @@
 	<script>
 		$(document).on('click','#submit',function(){
 			let questionlist =[];
+			let uId = '${principal.username}';
 			
 			$('.Question').each(function(){
 				let qAnswerlist = [];
@@ -87,7 +90,8 @@
 					$(this).parent().find('input:checked').each(function(){
 						let response={};
 	
-						response.aContent = $(this).val();	
+						response.aContent = $(this).val();
+						response.uId = uId;
 						qAnswerlist.push(response);
 	
 							
@@ -97,6 +101,7 @@
 						let response={};
 						
 						response.aContent = $(this).val();
+						response.uId = uId;
 						qAnswerlist.push(response);	
 					});
 						
@@ -105,6 +110,7 @@
 						let response={};
 						
 						response.aContent = $(this).val();
+						response.uId = uId;
 						qAnswerlist.push(response);	
 					});
 				}	
@@ -127,6 +133,7 @@
 						}
 			
 			let responseresult = JSON.stringify(survey);
+			console.log(responseresult)
 			
 			$.ajax({
 				method: "POST",

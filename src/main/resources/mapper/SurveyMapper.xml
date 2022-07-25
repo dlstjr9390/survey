@@ -6,9 +6,9 @@
 		<result property="sIdx" column="s_idx"></result>
 		<result property="sTitle" column="s_title"></result>
 		<result property="sDesc" column="s_description"></result>
-		<result property="sViews" column="s_views"></result>
 		<result property="sDatetime" column="s_datetime"></result>
 		<result property="sNum" column="sNum"></result>
+		<result property="rescount" column="rescount"></result>
 		
 		<collection property="questionlist" ofType="Question" javaType="java.util.List">
 			<result property="qIdx" column="q_idx" ></result>
@@ -39,7 +39,7 @@
 				s_idx,
 				s_title,
 				s_description,
-				s_views,
+				rescount,
 				s_datetime
 		
 		FROM	survey_board as ta,
@@ -56,8 +56,8 @@
 				s_idx,
 				s_title,
 				s_description,
-				s_views,
-				s_datetime
+				s_datetime,
+				rescount
 		
 		FROM	survey_board as ta,
 				(SELECT @sNum := (SELECT COUNT(*)-#{pageNum}+1 FROM survey_board)) tb
@@ -125,6 +125,13 @@
  		FROM	survey_board
  		WHERE	u_id = #{uId}
  	</select>
+ 	
+ 	<select id="responsecount" resultType="int">
+ 		SELECT COUNT(*) as count
+ 		FROM survey_stat
+ 		WHERE q_idx = #{qIdx}
+ 		AND response = #{aContent}
+ 	</select>
  	<select id="detailboard" resultMap="SurveyMap">
  		SELECT 	*
 				
@@ -145,11 +152,19 @@
 		INSERT INTO survey_stat(
 					s_idx,
 					q_idx,
-					response
+					response,
+					u_id
 		)VALUES(
 			#{sIdx},
 			#{qIdx},
-			#{aContent}
+			#{aContent},
+			#{uId}
 		)
 	</insert>
+	
+	<update id="updateRes">
+		UPDATE survey_board
+		SET	rescount = rescount + 1
+		WHERE s_idx = #{sIdx}
+	</update>
 </mapper>

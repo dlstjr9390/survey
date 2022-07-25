@@ -6,6 +6,7 @@ public class Response {
 	private int qIdx;
 	private String response;
 	private String uId;
+	private int count;
 	
 	public int getsSIdx() {
 		return sSIdx;
@@ -36,6 +37,12 @@ public class Response {
 	}
 	public void setuId(String uId) {
 		this.uId = uId;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	
