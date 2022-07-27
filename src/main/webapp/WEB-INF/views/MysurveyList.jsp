@@ -50,7 +50,14 @@
 							<th>등록 날짜</th>
 						<tr>
 							<td>${item.sNum }</td>
-							<td><a href="/statisticDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
+							<c:choose>
+								<c:when test="${item.rescount > 0 }">
+									<td><a href="/statisticDetail?sIdx=${item.sIdx }">${item.sTitle }</a></td>
+								</c:when>
+								<c:when test="${item.rescount < 1 }">
+									<td><a href="/statisticDetail?sIdx=${item.sIdx }" class="statdetail">${item.sTitle }</a></td>
+								</c:when>
+							</c:choose>
 							<td>${item.sDesc }</td>
 							<td>${item.rescount }</td>
 							<td>${item.sDatetime }</td>
@@ -97,6 +104,12 @@
 				<h2>잘못된 접근입니다.</h2>
 			</c:if>
 	</sec:authorize>	
-	
+	<br><p><a href="/">뒤로</a></p>
+	<script>
+		$(document).on('click','.statdetail',function(e){
+			alert('응답자가 없습니다.');
+			e.preventDefault() ? e.preventDefault() : (e.returnValue = false);
+		})
+	</script>
 </body>
 </html>

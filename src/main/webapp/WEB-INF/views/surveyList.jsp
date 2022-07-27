@@ -89,5 +89,6 @@
 			</c:choose>
 		</ul>
 	</div>
+	<br><p><a href="/">뒤로</a></p>
 </body>
 </html>

@@ -45,6 +45,7 @@
 					</div>
 				</div>	
 				<button type="submit" id="submit">완료</button>
+				<button type="button" id="cancel">취소</button>
 			</div>
 	</div>
 <script>
@@ -183,6 +184,10 @@
 							location.replace(url);
 					}
 		})
+	});
+
+	$(document).on('click','#cancel',function(){
+		location.href="/" // 질문 작성 고치기
 	});
 </script>	
 </body>

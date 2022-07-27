@@ -1,36 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>       
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>       
 <!DOCTYPE html>
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-	function drawChart(){
-	//   <c:forEach items="${survey.questionlist}" var="item">
-    	//	<c:forEach items="${item.qAnswerlist}" var="aitem">
-				var data = new gooogle.visualization.DataTable();
-				data.addColumn('ss','adf');
-				data.addColumn('aa','asdf');
-				data.addRows(['asd',5],['asdf',3],['asdfaa',3]);
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-				var option ={
-						'title':'표',
-	                    'width':200,
-	                    'height':200,
-	                    pieSliceText:'label',
-	                    legend:'none' 
-				};
-				var chart = new google.visualization.PieChart(document.getElemetByld("response_piechart"));
-				chart.draw(data,option);
-	//	    </c:forEach>
-	//    </c:forEach>
-	}
-</script>   
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -39,7 +16,7 @@
 	<h2>${survey.sDesc}</h2>
 	<hr><hr>
 	<c:forEach items="${survey.questionlist}" var="item" varStatus="status"> 
-		<p style="font-size:25px;">${item.qNum }.${item.qContent }<br>
+		<p style="font-size:25px;">${item.qNum }.${item.qContent }<p>
 		<c:forEach items="${item.qAnswerlist}" var="aitem" varStatus="status">
 			<c:choose>
 				<c:when test="${item.aType eq 'short' or item.aType eq 'long'}">
@@ -49,15 +26,100 @@
 						</c:if>
 					</c:forEach>
 				</c:when>
-				<c:when test="${item.aType eq 'subject' or item.aType eq 'checkbox' or item.aType eq 'dropdown' }">
-						<p>${aitem.aContent } : ${aitem.count} </p>
-				</c:when>			
 			</c:choose>
-		</c:forEach>
-		<hr><hr>
-			<div id="response_piechart" style="width: 900px; height: 500px;">
-		</div>
+		</c:forEach>	
+			<c:choose>
+				<c:when test="${item.aType eq 'subject'}">
+					<script type="text/javascript">
+					    google.charts.load("current", {'packages':["corechart"]});
+					    google.charts.setOnLoadCallback(drawChart);
+						function drawChart(){	
+									var data = new google.visualization.DataTable();
+									data.addColumn('string','보기');
+									data.addColumn('number','응답수');
+									<c:forEach items="${item.qAnswerlist}" var="aitem" varStatus="status">
+										data.addRows([
+										['${aitem.aContent}',${aitem.count}]
+											]);
+									</c:forEach>
+									var option ={
+											'title':'표',
+						                    'width':450,
+						                    'height':450,
+						                    pieSliceText:'label',
+						                    legend:'none' 
+									};
+									var chart = new google.visualization.PieChart(document.getElementById('subject_piechart'));
+									chart.draw(data,option);
+						}
+					</script>
+					<div id="subject_piechart">
+					</div>  
+				</c:when>
+				
+				<c:when test="${item.aType eq 'checkbox'}">
+					<script type="text/javascript">
+					    google.charts.load("current", {'packages':["corechart"]});
+					    google.charts.setOnLoadCallback(drawChart);
+						function drawChart(){	
+									var data = new google.visualization.DataTable();
+									data.addColumn('string','보기');
+									data.addColumn('number','응답수');
+									<c:forEach items="${item.qAnswerlist}" var="aitem" varStatus="status">
+										data.addRows([
+										['${aitem.aContent}',${aitem.count}]
+											]);
+									</c:forEach>
+									var option ={
+											'title':'표',
+						                    'width':450,
+						                    'height':450,
+						                    pieSliceText:'label',
+						                    legend:'none' 
+									};
+									var chart = new google.visualization.PieChart(document.getElementById('check_piechart'));
+									chart.draw(data,option);
+						}
+					</script>
+					<div id="check_piechart">
+					</div>  
+				</c:when>
+				
+				<c:when test="${item.aType eq 'dropdown'}">
+					<script type="text/javascript">
+					    google.charts.load("current", {'packages':["corechart"]});
+					    google.charts.setOnLoadCallback(drawChart);
+						function drawChart(){	
+									var data = new google.visualization.DataTable();
+									data.addColumn('string','보기');
+									data.addColumn('number','응답수');
+									<c:forEach items="${item.qAnswerlist}" var="aitem" varStatus="status">
+										data.addRows([
+										['${aitem.aContent}',${aitem.count}]
+											]);
+									</c:forEach>
+									var option ={
+											'title':'표',
+						                    'width':450,
+						                    'height':450,
+						                    pieSliceText:'label',
+						                    legend:'none' 
+									};
+									var chart = new google.visualization.PieChart(document.getElementById('dropdown_piechart'));
+									chart.draw(data,option);
+						}
+					</script>
+					<div id="dropdown_piechart">
+					</div>  
+				</c:when>																						
+			</c:choose>
+			<hr><hr>
 	</c:forEach>
-	
+	<div style=" margin-top:50px;">
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal" var="principal"/>
+				<a href="/surveyStatistic?uId=${principal.username}" style="font-size:20px; text-decoration-line : none;"><b>뒤로</b></a>
+		</sec:authorize>
+	</div>
 </body>
 </html>
