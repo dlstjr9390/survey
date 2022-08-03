@@ -105,6 +105,8 @@
 		$(this).hide();
 		$(this).closest('div').find('.addsubbtn').hide();
 		$(this).closest('div').find('.delsubbtn').hide();
+		$(this).closest('div').find('.aType').hide();
+		$(this).closest('div').find('.delbtn').hide();
 	});
 	
 	$(document).on('click','.addsubbtn',function(){
@@ -136,12 +138,31 @@
 		qnum--;
 		if(qnum == 1){
 			$(this).closest('div').prev().find('.addbtn').show();
-			$(this).closest('div').prev().find('.addsubbtn').show();
 			$(this).closest('div').prev().find('.delsubbtn').last().show();
-		}
-		$(this).closest('div').remove();
+			$(this).closest('div').prev().find('.aType').show();
+		
+			if($(this).closest('div').prev().find('.aType').val()=="subject"||
+					$(this).closest('div').prev().find('.aType').val()=="checkbox"||
+					$(this).closest('div').prev().find('.aType').val()=="dropdown"){
+				
+						$(this).closest('div').prev().find('.addsubbtn').show();
+			}
+			$(this).closest('div').remove();
+		} else {		
+			$(this).closest('div').parent().find('.qFormat').last().prev().find('.addbtn').show();
+			$(this).closest('div').parent().find('.qFormat').last().prev().find('.aType').show();
+			$(this).closest('div').parent().find('.qFormat').last().prev().find('.delbtn').show();
 
-	
+			if($(this).closest('div').parent().find('.qFormat').last().prev().find('.aType').val()=="subject"||
+					$(this).closest('div').parent().find('.qFormat').last().prev().find('.aType').val()=="checkbox"||
+					$(this).closest('div').parent().find('.qFormat').last().prev().find('.aType').val()=="dropdown"){
+				
+						$(this).closest('div').parent().find('.qFormat').last().prev().find('.addsubbtn').show();
+			}
+			$(this).closest('div').remove();
+		}
+
+		
 	});
 	
 	$(document).on('click','#submit',function(){
