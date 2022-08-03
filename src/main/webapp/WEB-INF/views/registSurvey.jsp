@@ -102,18 +102,20 @@
 							+'<hr>'
 							+'</div>'
 		);
-		$(this).remove();
+		$(this).hide();
+		$(this).closest('div').find('.addsubbtn').hide();
+		$(this).closest('div').find('.delsubbtn').hide();
 	});
 	
 	$(document).on('click','.addsubbtn',function(){
 		if(num < 2){
 			num ++;
-			$(this).parent().append('<p font-size:13px; class="ex">'+num+'. <input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
+			$(this).parent().append('<p font-size:13px; class="ex">'+num+'.<input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
 								+'<button type="button" class="delsubbtn">삭제</button>');
 		} else if(num >= 2 && num < 10){
 			num++;
 			$(this).parent().find('.delsubbtn').hide();
-			$(this).parent().append('<p font-size:13px; class="ex">'+num+'. <input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
+			$(this).parent().append('<p font-size:13px; class="ex">'+num+'.<input type="text" class="answer" style="font-size:13px; height:23px;">&nbsp;'
 					+'<button type="button" class="delsubbtn" >삭제</button>');
 			
 		} else if(num >= 10){
@@ -131,13 +133,12 @@
 	});
 
 	$(document).on('click','.delbtn',function(){
-		$(this).parent().next().remove();
 		qnum--;
 		if(qnum == 1){
-			$(this).closest('div').prev().find('hr').before('<button type="button" class="addbtn">질문 추가</button>');
-		} else {
-			$(this).parent().parent().prev().find('hr').before('<button type="button" class="addbtn">질문 추가</button>');
-		}	
+			$(this).closest('div').prev().find('.addbtn').show();
+			$(this).closest('div').prev().find('.addsubbtn').show();
+			$(this).closest('div').prev().find('.delsubbtn').last().show();
+		}
 		$(this).closest('div').remove();
 
 	
@@ -187,7 +188,7 @@
 	});
 
 	$(document).on('click','#cancel',function(){
-		location.href="/" // 질문 작성 고치기
+		location.href="/"
 	});
 </script>	
 </body>

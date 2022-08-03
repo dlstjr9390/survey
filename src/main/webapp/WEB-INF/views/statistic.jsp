@@ -99,7 +99,7 @@
 											]);
 									</c:forEach>
 									var option ={
-											'title':'표',
+											'title':'',
 						                    'width':450,
 						                    'height':450,
 						                    pieSliceText:'label',
