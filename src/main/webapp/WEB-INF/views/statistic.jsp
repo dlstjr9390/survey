@@ -12,6 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script>
+	var n = 0;
+</script>
 	<h1>${survey.sTitle}</h1>
 	<h2>${survey.sDesc}</h2>
 	<hr><hr>
@@ -40,7 +43,7 @@
 									<c:forEach items="${item.qAnswerlist}" var="aitem" varStatus="status">
 										data.addRows([
 										['${aitem.aContent}',${aitem.count}]
-											]);
+											]);	
 									</c:forEach>
 									var option ={
 											'title':'',
@@ -49,12 +52,14 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('subject_piechart'));
+									var chart = new google.visualization.PieChart(document.getElementById('subject_piechart'+n));
 									chart.draw(data,option);
+									n ++;
 						}
 					</script>
 					<div id="subject_piechart">
-					</div>  
+					</div> 
+
 				</c:when>
 				
 				<c:when test="${item.aType eq 'checkbox'}">
@@ -77,8 +82,9 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('check_piechart'));
+									var chart = new google.visualization.PieChart(document.getElementById('check_piechart'+n));
 									chart.draw(data,option);
+									n++;
 						}
 					</script>
 					<div id="check_piechart">
@@ -105,8 +111,9 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('dropdown_piechart'));
+									var chart = new google.visualization.PieChart(document.getElementById('dropdown_piechart'+n));
 									chart.draw(data,option);
+									n++;
 						}
 					</script>
 					<div id="dropdown_piechart">
