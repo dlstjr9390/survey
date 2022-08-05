@@ -57,8 +57,8 @@
 									n ++;
 						}
 					</script>
-					<div id="subject_piechart">
-					</div> 
+					<div id="subject_piechart0">
+					</div>
 
 				</c:when>
 				
