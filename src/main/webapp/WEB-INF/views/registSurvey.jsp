@@ -33,7 +33,7 @@
 					<div class="qFormat">
 						<p style="font-size:15px;"><b>1.</b> <input type="text" class= "qContent" placeholder="질문을 작성해주세요." style="width:25%; height:30px;">
 						<select class="aType" name="aType"style="margin-left:10px; margin-right:10px;" >
-							<option value="default" selected disabled>선택</option>
+							<option value="default" selected>선택</option>
 							<option value="short" >단답형</option>
 							<option value="long">장문형</option>
 							<option value="subject">객관식</option>
@@ -166,8 +166,13 @@
 	});
 	
 	$(document).on('click','#submit',function(){
+		if($('#survey').find('.aType').val() == "default"){
+			alert('작성이 완료되지 않은 항목이 존재합니다.');
+			return;
+		} else {
 		let questionlist = [];
 		let qNum = 1;
+
 		$('.qFormat').each(function(){
 			let qAnswerlist = [];
 
@@ -206,8 +211,10 @@
 							location.replace(url);
 					}
 		})
+		}
 	});
 
+	
 	$(document).on('click','#cancel',function(){
 		location.href="/"
 	});

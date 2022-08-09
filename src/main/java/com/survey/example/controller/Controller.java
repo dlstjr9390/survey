@@ -28,7 +28,6 @@ import com.survey.example.service.UserService;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-	int page=1;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserService userservice;
@@ -140,6 +139,7 @@ public class Controller {
 	
 	@RequestMapping("/ParticipateSurvey")
 	public String ParticipateSurvey(Model model,Pagination pagination) {
+		int page=1;
 		
 		int count = surveyservice.boardcount();
 		if(pagination.getPage()>0) {
@@ -186,7 +186,8 @@ public class Controller {
 	
 	@RequestMapping("/surveyStatistic")
 	public String surveyStatistic(Model model, Pagination pagination) {
-
+		int page=1;
+		
 		int count = surveyservice.statboardcount(pagination);
 		if(pagination.getPage()>0) {
 			page = pagination.getPage();
