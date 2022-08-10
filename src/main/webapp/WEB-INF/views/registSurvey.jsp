@@ -166,7 +166,10 @@
 	});
 	
 	$(document).on('click','#submit',function(){
-		if($('#survey').find('.aType').val() == "default"){
+		if($('#survey').find('.aType').val() == "default" ||
+				$('#survey').find('.sTitle').val() == ""||
+				$('#survey').find('.sDesc').val() == ""||
+				$('#survey').find('.qContent').val() == ""){
 			alert('작성이 완료되지 않은 항목이 존재합니다.');
 			return;
 		} else {

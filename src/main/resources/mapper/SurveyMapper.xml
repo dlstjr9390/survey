@@ -167,4 +167,25 @@
 		SET	rescount = rescount + 1
 		WHERE s_idx = #{sIdx}
 	</update>
+	
+	<delete id="delsurvey">
+		DELETE FROM survey_board
+		WHERE s_idx = #{sIdx}
+	</delete>
+	
+	<select id="selqIdx" resultType="Question">
+		SELECT q_idx as qIdx
+		FROM survey_question
+		WHERE s_idx = #{sIdx}
+	</select>
+	
+	<delete id="delquestion">
+		DELETE FROM survey_question
+		WHERE s_idx = #{sIdx}
+	</delete>
+	
+	<delete id="delanswer">
+		DELETE FROM survey_answer
+		WHERE q_idx = #{qIdx}
+	</delete>
 </mapper>

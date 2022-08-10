@@ -23,5 +23,9 @@ public interface SurveyService {
 	public void registResponse(Answer answer);
 	public List<Response> statdetail(Survey survey);
 	public void updateRes(Survey survey);
+	public void delsurvey(Survey survey);
+	public List<Question> selqIdx(Survey survey);
+	public void delquestion(Survey survey);
+	public void delanswer(Question question);
 	
 }

@@ -38,16 +38,16 @@
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal" var="principal"/>
 			<c:if test="${pagination.uId eq principal.username }">
-				<table class="table table-bordered" style="width:80%; ">
+				<table class="table table-bordered" style="width:80%; " id ="${pagination.uId }">
 					<tr>
-						<th colspan="5" style="text-align:center;"> 전체 설문조사 수 : ${pagination.count}</th>
+						<th colspan="6" style="text-align:center;"> 전체 설문조사 수 : ${pagination.count}</th>
 					<tr>	
 					<c:forEach items="${list}" var="item" varStatus="status">
 							<th style="width:5%;">No</th>
 							<th style="width:35%">설문 제목</th>
 							<th style="width:20%">설명</th>
 							<th style="width:10%">참여</th>
-							<th>등록 날짜</th>
+							<th colspan="2">등록 날짜</th>
 						<tr>
 							<td>${item.sNum }</td>
 							<c:choose>
@@ -61,6 +61,7 @@
 							<td>${item.sDesc }</td>
 							<td>${item.rescount }</td>
 							<td>${item.sDatetime }</td>
+							<td style="border-left:hidden;"><button class="surdelbtn" id="${item.sIdx }">삭제</button></td>
 						</tr>
 					</c:forEach>	
 				</table>
@@ -110,6 +111,22 @@
 			alert('응답자가 없습니다.');
 			e.preventDefault() ? e.preventDefault() : (e.returnValue = false);
 		})
+		
+		$(document).on('click','.surdelbtn',function(){
+			let sIdx = $(this).attr('id');
+			let uId = $(this).closest('table').attr('id');
+		
+			$.ajax({
+				method: "POST",
+				url: "/delsurvey",
+				data: sIdx = {sIdx:sIdx, uId:uId},
+				success: function(data){
+							let url="/surveyStatistic?uId="+uId;
+							location.replace(url);
+				}
+			})
+		})
+
 	</script>
 </body>
 </html>

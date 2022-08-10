@@ -80,8 +80,29 @@ public class SurveyServiceImpl implements SurveyService {
 	public List<Response> statdetail(Survey survey){
 		return surveymapper.statdetail(survey);
 	}
-
+	
+	@Override
 	public void updateRes(Survey survey) {
 		surveymapper.updateRes(survey);
+	}
+	
+	@Override
+	public void delsurvey(Survey survey) {
+		surveymapper.delsurvey(survey);
+	}
+	
+	@Override
+	public List<Question> selqIdx(Survey survey) {
+		return surveymapper.selqIdx(survey);
+	}
+	
+	@Override
+	public void delquestion(Survey survey) {
+		surveymapper.delquestion(survey);
+	}
+	
+	@Override
+	public void delanswer(Question question) {
+		surveymapper.delanswer(question);
 	}
 }

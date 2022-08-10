@@ -223,4 +223,19 @@ public class Controller {
 		
 		return "/statistic";
 	}
+	
+	@RequestMapping("/delsurvey")
+	public String delsurvey(Model model,Survey survey,Pagination pagination) {
+		
+		List<Question> qlist = surveyservice.selqIdx(survey);
+		for(Question q : qlist) {
+			surveyservice.delanswer(q);
+		}
+		surveyservice.delquestion(survey);
+		surveyservice.delsurvey(survey);
+		
+		model.addAttribute("pagination",pagination);
+		
+		return "/MysurveyList";
+	}
 }

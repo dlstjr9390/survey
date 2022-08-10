@@ -52,12 +52,12 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('subject_piechart'+n));
+									var chart = new google.visualization.PieChart(document.getElementById('subject_piechart'));
 									chart.draw(data,option);
 									n ++;
 						}
 					</script>
-					<div id="subject_piechart0">
+					<div id="subject_piechart">
 					</div>
 
 				</c:when>
@@ -82,12 +82,12 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('check_piechart'+n));
+									var chart = new google.visualization.PieChart(document.getElementById('check_piechart'));
 									chart.draw(data,option);
 									n++;
 						}
 					</script>
-					<div id="check_piechart">
+					<div id="check_piechart0">
 					</div>  
 				</c:when>
 				
@@ -111,7 +111,7 @@
 						                    pieSliceText:'label',
 						                    legend:'none' 
 									};
-									var chart = new google.visualization.PieChart(document.getElementById('dropdown_piechart'+n));
+									var chart = new google.visualization.PieChart(document.getElementById('dropdown_piechart'));
 									chart.draw(data,option);
 									n++;
 						}

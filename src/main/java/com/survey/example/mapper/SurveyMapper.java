@@ -25,5 +25,9 @@ public interface SurveyMapper {
 	public List<Response> statdetail(Survey survey);
 	public int responsecount(Answer answer);
 	public void updateRes(Survey survey);
+	public void delsurvey(Survey survey);
+	public List<Question> selqIdx(Survey survey);
+	public void delquestion(Survey survey);
+	public void delanswer(Question question);
 }
 	
