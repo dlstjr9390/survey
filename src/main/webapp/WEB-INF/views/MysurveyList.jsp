@@ -42,12 +42,12 @@
 					<tr>
 						<th colspan="6" style="text-align:center;"> 전체 설문조사 수 : ${pagination.count}</th>
 					<tr>	
+						<th style="width:5%;">No</th>
+						<th style="width:35%">설문 제목</th>
+						<th style="width:20%">설명</th>
+						<th style="width:10%">참여</th>
+						<th colspan="2">등록 날짜</th>
 					<c:forEach items="${list}" var="item" varStatus="status">
-							<th style="width:5%;">No</th>
-							<th style="width:35%">설문 제목</th>
-							<th style="width:20%">설명</th>
-							<th style="width:10%">참여</th>
-							<th colspan="2">등록 날짜</th>
 						<tr>
 							<td>${item.sNum }</td>
 							<c:choose>
@@ -62,8 +62,9 @@
 							<td>${item.rescount }</td>
 							<td>${item.sDatetime }</td>
 							<td style="border-left:hidden;"><button class="surdelbtn" id="${item.sIdx }">삭제</button></td>
-						</tr>
-					</c:forEach>	
+						</tr>	
+					</c:forEach>
+
 				</table>
 				<div>
 					<ul class="ulpagination">
